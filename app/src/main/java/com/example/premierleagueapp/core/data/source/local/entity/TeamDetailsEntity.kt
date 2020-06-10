@@ -55,7 +55,7 @@ data class TeamDetailsEntity(
 
     @TypeConverters(DBConverters::class)
     @ColumnInfo(name = "squad")
-    val player: List<Player> = listOf(),
+    val squad: List<Player> = listOf(),
 
     @ColumnInfo(name = "lastUpdated")
     val lastUpdated: String = ""
