@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -21,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug{
+            minifyEnabled false
+        }
     }
 }
 
@@ -33,5 +38,46 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+
+    //dagger
+    kapt appDependencies.daggerCompiler
+    kapt appDependencies.daggerAndroidProcessor
+    implementation appDependencies.daggerAandroidSupport
+    implementation appDependencies.dagger
+    implementation appDependencies.daggerAndroid
+
+    //RxJava & RxAndroid
+    implementation appDependencies.rxjava
+    implementation appDependencies.rxAndroid
+    implementation appDependencies.rxKotlin
+
+    // Room components
+    implementation appDependencies.roomRuntime
+    implementation appDependencies.roomKtx
+    kapt appDependencies.roomCompiler
+
+    // Lifecycle components
+    implementation appDependencies.lifecycleExtensions
+    kapt appDependencies.lifecycleCompiler
+
+    // UI Material Components
+    implementation appDependencies.materialComponents
+
+    // OkHttp, Retrofit
+    implementation appDependencies.okhttp
+    implementation appDependencies.okhttpLoggingInterceptor
+    implementation appDependencies.retrofit
+    implementation appDependencies.retrofitAdapterRxjava2
+
+    // glide
+    implementation appDependencies.glide
+    kapt appDependencies.glideCompiler
+
+    implementation appDependencies.moshi
+    implementation appDependencies.moshiRetrofitConverter
+    kapt appDependencies.moshiCodegen
+
+    implementation appDependencies.lottie
 
 }
