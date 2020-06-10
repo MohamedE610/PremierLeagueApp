@@ -4,27 +4,22 @@ import com.example.premierleagueapp.core.data.source.local.entity.ActiveCompetit
 import com.example.premierleagueapp.core.data.source.local.entity.Area
 import com.example.premierleagueapp.core.data.source.local.entity.Player
 import com.example.premierleagueapp.core.data.source.local.entity.TeamDetailsEntity
-import com.example.premierleagueapp.features.loading.data.model.Squad
-import com.example.premierleagueapp.features.loading.data.model.TeamActiveCompetition
-import com.example.premierleagueapp.features.loading.data.model.TeamArea
-import com.example.premierleagueapp.features.loading.data.model.TeamDetailsResponse
+import com.example.premierleagueapp.features.loading.data.model.*
 
-fun TeamDetailsResponse.map() = TeamDetailsEntity(
+fun Team.map() = TeamDetailsEntity(
     id = this.id,
     area = this.teamArea.map(),
-    activeCompetitions = this.teamActiveCompetitions.map { it.map() },
     name = this.name,
     shortName = this.shortName,
     tla = this.tla,
     crestUrl = this.crestUrl,
     address = this.address,
-    phone = this.phone,
+    phone = this.phone ?: "",
     website = this.website,
     email = this.email ?: "",
-    founded = this.founded,
+    founded = this.founded ?: 0,
     clubColors = this.clubColors,
     venue = this.venue,
-    squad = this.squad.map { it.map() },
     lastUpdated = this.lastUpdated
 )
 
