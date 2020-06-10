@@ -1,4 +1,4 @@
-package com.emiratesauction.premierleagueapp
+package com.example.premierleagueapp
 
 import org.junit.Test
 

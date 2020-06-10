@@ -8,7 +8,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.emiratesauction.premierleagueapp"
+        applicationId "com.example.premierleagueapp"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -29,6 +29,11 @@ android {
             buildConfigField "String", "BASE_URL", getPropertyValueByKey("BASE_URL")
             buildConfigField "String", "API_KEY", getPropertyValueByKey("API_KEY")
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
