@@ -3,4 +3,12 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="dark">#1e272c</color>
+    <color name="white">@android:color/white</color>
+    <color name="blue">#0075ff</color>
+    <color name="gray">@color/cardview_dark_background</color>
+    <color name="white_90">#90ffffff</color>
+    <color name="black">#000000</color>
+
 </resources>

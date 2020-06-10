@@ -27,7 +27,7 @@ data class TeamDetailsResponse(
     @Json(name = "website")
     val website: String = "",
     @Json(name = "email")
-    val email: String? = "",
+    val email: String? = null,
     @Json(name = "founded")
     val founded: Int = 0,
     @Json(name = "clubColors")
@@ -63,7 +63,7 @@ data class Squad(
     @Json(name = "name")
     val name: String = "",
     @Json(name = "position")
-    val position: String = "",
+    val position: String? = null,
     @Json(name = "dateOfBirth")
     val dateOfBirth: String = "",
     @Json(name = "countryOfBirth")
@@ -71,7 +71,7 @@ data class Squad(
     @Json(name = "nationality")
     val nationality: String = "",
     @Json(name = "shirtNumber")
-    val shirtNumber: String = "",
+    val shirtNumber: String? = null,
     @Json(name = "role")
     val role: String = ""
 )

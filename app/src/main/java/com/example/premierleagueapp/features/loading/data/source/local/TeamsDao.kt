@@ -6,7 +6,7 @@ import com.example.premierleagueapp.core.data.source.local.entity.TeamDetailsEnt
 @Dao
 interface TeamsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTams(vararg teams: List<TeamDetailsEntity>)
+    fun insertTams(teams: List<TeamDetailsEntity>)
 
     @Query("Delete From TeamDetails")
     fun deleteAllTeams()

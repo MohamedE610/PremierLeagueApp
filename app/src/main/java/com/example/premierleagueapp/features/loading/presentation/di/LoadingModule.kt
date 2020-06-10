@@ -22,6 +22,7 @@ class LoadingModule {
     @Provides
     fun providesFootballDao(database: PremierLeagueDB) = database.teamsDao()
 
+    @Module
     interface BindsModule {
         @Binds
         fun bindLoadingLocalDataSource(localDataSource: LoadingLocalDataSourceImpl): LoadingLocalDataSource
