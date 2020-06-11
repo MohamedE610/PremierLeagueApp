@@ -58,8 +58,10 @@ data class TeamDetailsEntity(
     val squad: List<Player> = listOf(),
 
     @ColumnInfo(name = "lastUpdated")
-    val lastUpdated: String = ""
+    val lastUpdated: String = "",
 
+    @ColumnInfo(name = "isFavourite")
+    var isFavourite: Boolean = false
 )
 
 @JsonClass(generateAdapter = true)
