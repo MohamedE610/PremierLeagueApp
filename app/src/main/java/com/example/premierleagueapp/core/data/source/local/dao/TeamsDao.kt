@@ -15,8 +15,11 @@ interface TeamsDao {
     fun getTeams(offset: Int, limit: Int): List<TeamDetailsEntity>
 
     @Query("Select * From TeamDetails Where id = :teamId")
-    fun getTeamById(teamId: Int): TeamDetailsEntity
+    fun getTeamById(teamId: Int): TeamDetailsEntity?
 
     @Update
     fun updateTeam(team: TeamDetailsEntity)
+
+    @Query("Select * From TeamDetails Where isFavourite = 1")
+    fun getFavouriteTeams(): List<TeamDetailsEntity>?
 }

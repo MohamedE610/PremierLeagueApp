@@ -1,5 +1,6 @@
 package com.example.premierleagueapp.features.loading.presentation.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -9,6 +10,7 @@ import com.example.premierleagueapp.core.data.source.remote.rxerrorhandling.Prem
 import com.example.premierleagueapp.core.presentation.extensions.showShortToast
 import com.example.premierleagueapp.core.presentation.viewmodel.ViewModelFactory
 import com.example.premierleagueapp.features.loading.presentation.viewmodel.LoadingViewModel
+import com.example.premierleagueapp.features.teams.presentaion.view.activity.TeamsActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -44,23 +46,29 @@ class LoadingActivity : AppCompatActivity() {
     }
 
     private fun teamsLoadedSuccessfully() {
-        showShortToast("Done !")
+        navigateToTeamsActivity()
+    }
+
+    private fun navigateToTeamsActivity() {
+        val intent = Intent(this, TeamsActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun showTimeOutError(it: PremierLeagueException) {
-
+        showShortToast(getString(R.string.lbl_common_error))
     }
 
     private fun showServerDownError(it: PremierLeagueException) {
-
+        showShortToast(getString(R.string.lbl_common_error))
     }
 
     private fun showNetworkError(it: PremierLeagueException) {
-
+        showShortToast(getString(R.string.lbl_network_error))
     }
 
     private fun showHttpError(it: PremierLeagueException) {
-
+        showShortToast(getString(R.string.lbl_common_error))
     }
 
 }

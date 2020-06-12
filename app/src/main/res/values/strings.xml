@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Premier League App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lbl_website">Website</string>
+    <string name="lbl_common_error">Oops, something went wrong</string>
+    <string name="lbl_network_error">Please, check your internet connection</string>
+    <string name="lbl_no_more_teams_msg">There is no more teams</string>
+    <string name="lbl_empty_error_msg">There is no teams, please try again later</string>
+
+    <string-array name="teams_categories">
+        <item>All Teams</item>
+        <item>Favourite Teams</item>
+    </string-array>
 </resources>

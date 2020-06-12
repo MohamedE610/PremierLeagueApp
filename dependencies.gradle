@@ -19,6 +19,9 @@ ext {
     moshiRetrofitConverterVersion = "2.4.0"
 
     lottieVersion = "3.4.0"
+    recyclerviewVersion = "1.2.0-alpha02"
+    androidsvgVersion = "1.2.1"
+
 
 
     appDependencies = [
@@ -61,7 +64,12 @@ ext {
             moshiRetrofitConverter  : "com.squareup.retrofit2:converter-moshi:$moshiRetrofitConverterVersion",
             moshiCodegen            : "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
 
-            lottie                  : "com.airbnb.android:lottie:$lottieVersion"
+            lottie                  : "com.airbnb.android:lottie:$lottieVersion",
+
+            /*for use merge adapter in recycler view*/
+            recyclerviewAlpha02     : "androidx.recyclerview:recyclerview:$recyclerviewVersion",
+
+            androidsvg:  "com.caverock:androidsvg:$androidsvgVersion"
 
     ]
 

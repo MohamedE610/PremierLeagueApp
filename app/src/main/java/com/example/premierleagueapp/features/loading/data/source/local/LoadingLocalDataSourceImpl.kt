@@ -9,8 +9,22 @@ class LoadingLocalDataSourceImpl @Inject constructor(private val teamsDao: Teams
     LoadingLocalDataSource {
     override fun refreshTeamsData(teams: List<TeamDetailsEntity>): Completable {
         return Completable.fromCallable {
+            val updatedTeams = updateFavouriteTeams(teams)
             teamsDao.deleteAllTeams()
-            teamsDao.insertTeams(teams)
+            teamsDao.insertTeams(updatedTeams)
         }
+    }
+
+    private fun updateFavouriteTeams(teams: List<TeamDetailsEntity>): List<TeamDetailsEntity> {
+        val favouriteTeams = teamsDao.getFavouriteTeams() ?: return teams
+
+        val teamsHashMap = HashMap<Int/*teamId*/, TeamDetailsEntity>()
+        for (team in teams)
+            teamsHashMap[team.id] = team
+
+        for (team in favouriteTeams)
+            teamsHashMap[team.id]?.isFavourite = team.isFavourite
+
+        return teamsHashMap.values.toList()
     }
 }

@@ -19,9 +19,6 @@ class LoadingModule {
     @Provides
     fun providesFootballApi() = ServiceGenerator().createService(FootballApi::class.java)
 
-    @Provides
-    fun providesFootballDao(database: PremierLeagueDB) = database.teamsDao()
-
     @Module
     interface BindsModule {
         @Binds

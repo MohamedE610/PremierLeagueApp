@@ -52,4 +52,8 @@ class AppModule {
             .fallbackToDestructiveMigration()
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun providesTeamsDao(database: PremierLeagueDB) = database.teamsDao()
 }
