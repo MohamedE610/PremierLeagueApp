@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.example.premierleagueapp.core.data.source.local.db.PremierLeagueDB
-import com.example.premierleagueapp.core.presentation.common.AppConstants
+import com.example.premierleagueapp.core.presentation.utils.AppConstants
 import com.example.premierleagueapp.core.presentation.di.qualifier.DatabaseInfo
 import com.example.premierleagueapp.core.presentation.di.qualifier.PreferenceInfo
 import dagger.Module
@@ -44,7 +44,7 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideSpoonacularChatBotDB(
+    fun providePremierLeagueDB(
         @DatabaseInfo dbName: String,
         context: Context
     ): PremierLeagueDB {

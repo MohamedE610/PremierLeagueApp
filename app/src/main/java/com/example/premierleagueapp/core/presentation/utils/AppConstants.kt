@@ -1,4 +1,4 @@
-package com.example.premierleagueapp.core.presentation.common
+package com.example.premierleagueapp.core.presentation.utils
 
 class AppConstants {
     companion object{

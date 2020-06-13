@@ -7,6 +7,7 @@
     <string name="lbl_network_error">Please, check your internet connection</string>
     <string name="lbl_no_more_teams_msg">There is no more teams</string>
     <string name="lbl_empty_error_msg">There is no teams, please try again later</string>
+    <string name="lbl_internet_connected">Internet connected</string>
 
     <string-array name="teams_categories">
         <item>All Teams</item>

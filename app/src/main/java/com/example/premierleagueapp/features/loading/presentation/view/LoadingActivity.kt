@@ -7,7 +7,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.premierleagueapp.R
 import com.example.premierleagueapp.core.data.source.remote.rxerrorhandling.PremierLeagueException
+import com.example.premierleagueapp.core.presentation.extensions.isInternetAvailable
 import com.example.premierleagueapp.core.presentation.extensions.showShortToast
+import com.example.premierleagueapp.core.presentation.utils.InternetConnectivityListener
 import com.example.premierleagueapp.core.presentation.viewmodel.ViewModelFactory
 import com.example.premierleagueapp.features.loading.presentation.viewmodel.LoadingViewModel
 import com.example.premierleagueapp.features.teams.presentaion.view.activity.TeamsActivity
@@ -15,6 +17,9 @@ import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class LoadingActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var internetConnectivityListener: InternetConnectivityListener
 
     @Inject
     lateinit var loadingViewModelFactory: ViewModelFactory<LoadingViewModel>
@@ -43,6 +48,19 @@ class LoadingActivity : AppCompatActivity() {
             serverDownErrorConsumer = Observer { it?.let { showServerDownError(it) } },
             timeOutErrorConsumer = Observer { it?.let { showTimeOutError(it) } },
             unExpectedErrorConsumer = Observer { it?.let { showServerDownError(it) } })
+        observeOnInternetConnection()
+    }
+
+    private fun observeOnInternetConnection() {
+        internetConnectivityListener.internetConnectivityLiveData.observe(this,
+            Observer {
+                it?.let { isInternetAvailable ->
+                    if (isInternetAvailable) {
+                        showShortToast(getString(R.string.lbl_internet_connected))
+                        loadPremierLeagueTeams()
+                    }
+                }
+            })
     }
 
     private fun teamsLoadedSuccessfully() {
@@ -69,6 +87,16 @@ class LoadingActivity : AppCompatActivity() {
 
     private fun showHttpError(it: PremierLeagueException) {
         showShortToast(getString(R.string.lbl_common_error))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        internetConnectivityListener.registerInternetReceiver()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        internetConnectivityListener.unregisterInternetReceiver()
     }
 
 }
