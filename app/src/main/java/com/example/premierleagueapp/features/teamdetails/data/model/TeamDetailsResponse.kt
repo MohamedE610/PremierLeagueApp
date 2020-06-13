@@ -1,5 +1,4 @@
-package com.example.premierleagueapp.features.loading.data.model
-
+package com.example.premierleagueapp.features.teamdetails.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -38,6 +37,14 @@ data class TeamDetailsResponse(
     val squad: List<Squad> = listOf(),
     @Json(name = "lastUpdated")
     val lastUpdated: String = ""
+)
+
+@JsonClass(generateAdapter = true)
+data class TeamArea(
+    @Json(name = "id")
+    val id: Int = 0,
+    @Json(name = "name")
+    val name: String = ""
 )
 
 @JsonClass(generateAdapter = true)
