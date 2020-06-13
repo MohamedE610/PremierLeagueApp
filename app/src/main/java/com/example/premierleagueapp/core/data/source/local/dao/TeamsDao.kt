@@ -2,6 +2,7 @@ package com.example.premierleagueapp.core.data.source.local.dao
 
 import androidx.room.*
 import com.example.premierleagueapp.core.data.source.local.entity.TeamDetailsEntity
+import io.reactivex.Flowable
 
 @Dao
 interface TeamsDao {
@@ -21,5 +22,5 @@ interface TeamsDao {
     fun updateTeam(team: TeamDetailsEntity)
 
     @Query("Select * From TeamDetails Where isFavourite = 1")
-    fun getFavouriteTeams(): List<TeamDetailsEntity>?
+    fun getFavouriteTeams(): Flowable<List<TeamDetailsEntity>>
 }

@@ -8,12 +8,12 @@ import retrofit2.http.Path
 
 interface FootballApi {
 
-    @GET("https://api.football-data.org/v2/competitions/{competitionId}/teams")
+    @GET("v2/competitions/{competitionId}/teams")
     fun getPremierLeagueTeams(
         @Path("competitionId") competitionId: Int = PREMIER_LEAGUE_ID
     ): Single<TeamsResponse>
 
-    @GET("https://api.football-data.org/v2/teams/{teamId}")
+    @GET("v2/teams/{teamId}")
     fun getTeamDetails(
         @Path("teamId") teamId: Int
     ): Single<TeamDetailsResponse>

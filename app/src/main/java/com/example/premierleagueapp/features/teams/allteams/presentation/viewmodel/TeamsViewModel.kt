@@ -15,16 +15,13 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class TeamsViewModel @Inject constructor(
-    private val getTeamsFromDBUseCase: GetTeamsFromDBUseCase,
-    private val markTeamAsFavouriteUseCase: MarkTeamAsFavouriteUseCase,
-    private val markTeamAsUnFavouriteUseCase: MarkTeamAsUnFavouriteUseCase
+    private val getTeamsFromDBUseCase: GetTeamsFromDBUseCase
 ) : BaseViewModel() {
 
     private var offsetDB = 0
 
     val moreTeamsObservableResource = ObservableResource<List<TeamUI>>()
     val teamsObservableResource = ObservableResource<List<TeamUI>>()
-
 
     fun loadFirstPage() {
         loadTeamsFromDB(teamsObservableResource)
@@ -55,32 +52,6 @@ class TeamsViewModel @Inject constructor(
                 else
                     observableResource.error.value =
                         PremierLeagueException(PremierLeagueException.Kind.UNEXPECTED, it)
-            })
-
-        addDisposable(disposable)
-    }
-
-    fun markTeamAsFavourite(teamId: Int) {
-        val disposable = markTeamAsFavouriteUseCase.execute(teamId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.d("markTeamAsFavourite", "success")
-            }, {
-                Log.d("markTeamAsFavourite", "failed")
-            })
-
-        addDisposable(disposable)
-    }
-
-    fun markTeamAsUnFavourite(teamId: Int) {
-        val disposable = markTeamAsUnFavouriteUseCase.execute(teamId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.d("markTeamAsUnFavourite", "success")
-            }, {
-                Log.d("markTeamAsUnFavourite", "failed")
             })
 
         addDisposable(disposable)

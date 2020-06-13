@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.MergeAdapter
 import com.example.premierleagueapp.R
+import com.example.premierleagueapp.common.teamfavourite.presentation.viewmodel.TeamFavouriteViewModel
 import com.example.premierleagueapp.core.presentation.extensions.hide
 import com.example.premierleagueapp.core.presentation.extensions.showShortToast
 import com.example.premierleagueapp.core.presentation.extensions.visible
@@ -28,7 +29,16 @@ class AllTeamsFragment : Fragment() {
     @Inject
     lateinit var teamsViewModelFactory: ViewModelFactory<TeamsViewModel>
     private val teamsViewModel by lazy {
-        ViewModelProvider(activity!!, teamsViewModelFactory).get(TeamsViewModel::class.java)
+        ViewModelProvider(this, teamsViewModelFactory).get(TeamsViewModel::class.java)
+    }
+
+    @Inject
+    lateinit var teamFavouriteViewModelFactory: ViewModelFactory<TeamFavouriteViewModel>
+    private val teamFavouriteViewModel by lazy {
+        ViewModelProvider(
+            activity!!,
+            teamFavouriteViewModelFactory
+        ).get(TeamFavouriteViewModel::class.java)
     }
 
     private val mergeAdapter = MergeAdapter()
@@ -63,8 +73,28 @@ class AllTeamsFragment : Fragment() {
     // region initObservers
 
     private fun initObservers() {
+        observerOnLastUpdatedTeam()
         observeOnLoadFirstPageForTeams()
         observeOnLoadMoreTeams()
+    }
+
+    // observe when team.isFavourite value change in favourite list
+    // to update current team in all list
+    private fun observerOnLastUpdatedTeam() {
+        teamFavouriteViewModel.lastUpdatedTeam.observe(viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    updateTeam(it)
+                }
+            })
+    }
+
+    private fun updateTeam(team: TeamUI) {
+        val teamIndex = teamsAdapter.data.indexOfFirst { it.id == team.id }
+        if (teamIndex >= 0 && teamIndex < teamsAdapter.data.size) {
+            teamsAdapter.data[teamIndex].isFavourite = team.isFavourite
+            teamsAdapter.notifyItemChanged(teamIndex)
+        }
     }
 
     private fun observeOnLoadFirstPageForTeams() {
@@ -86,6 +116,7 @@ class AllTeamsFragment : Fragment() {
             activity?.showShortToast(getString(R.string.lbl_empty_error_msg))
             return
         }
+        //teamsAdapter.data.clear()
         updateTeamLis(it)
         setOnTeamsRecyclerViewOnScrollListener()
     }
@@ -152,9 +183,9 @@ class AllTeamsFragment : Fragment() {
 
     private fun onFavouriteItemClicked(team: TeamUI, position: Int) {
         if (team.isFavourite)
-            teamsViewModel.markTeamAsUnFavourite(teamId = team.id)
+            teamFavouriteViewModel.markTeamAsUnFavourite(teamId = team.id)
         else
-            teamsViewModel.markTeamAsFavourite(teamId = team.id)
+            teamFavouriteViewModel.markTeamAsFavourite(teamId = team.id)
 
         team.isFavourite = !team.isFavourite
         teamsAdapter.notifyItemChanged(position)

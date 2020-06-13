@@ -10,7 +10,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-abstract class FavouriteTeamModule {
+abstract class TeamFavouriteModule {
     @Binds
     abstract fun bindTeamFavouriteLocalDataSource(teamFavouriteLocalDataSourceImpl: TeamFavouriteLocalDataSourceImpl): TeamFavouriteLocalDataSource
 

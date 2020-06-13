@@ -72,6 +72,7 @@ dependencies {
     implementation appDependencies.roomRuntime
     implementation appDependencies.roomKtx
     kapt appDependencies.roomCompiler
+    implementation appDependencies.roomRxJava2
 
     // Lifecycle components
     implementation appDependencies.lifecycleExtensions
@@ -99,6 +100,7 @@ dependencies {
     implementation appDependencies.recyclerviewAlpha02
 
     implementation appDependencies.androidsvg
+
 
 
 }
