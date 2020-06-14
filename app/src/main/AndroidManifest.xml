@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.example.premierleagueapp.features.teams.presentaion.view.activity.TeamsActivity"></activity>
+        <activity android:name=".features.teamdetails.presentation.view.activity.TeamDetailsActivity"></activity>
+        <activity android:name=".features.teams.presentaion.view.activity.TeamsActivity" />
         <activity android:name=".features.loading.presentation.view.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
