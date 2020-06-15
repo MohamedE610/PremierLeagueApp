@@ -7,5 +7,6 @@ data class TeamUI(
     val clubColors: String = "",
     val venue: String = "",
     val crestUrl:String = "",
-    var isFavourite: Boolean = false
+    var isFavourite: Boolean = false,
+    val teamPlayersNames: String = ""
 )

@@ -13,8 +13,9 @@ fun TeamDetailsEntity.map() = TeamModel(
     clubColors = this.clubColors,
     email = this.email,
     founded = this.founded,
-    phone = this.phone?:"",
+    phone = this.phone ?: "",
     venue = this.venue,
     crestUrl = this.crestUrl,
-    isFavourite = this.isFavourite
+    isFavourite = this.isFavourite,
+    teamPlayersNames = this.squad.joinToString(", ") { it.name }
 )

@@ -79,5 +79,7 @@ class TeamViewHolder(
                 R.drawable.ic_unfavourite
         )
 
+        itemView.tvTeamPlayersNames.text = item.teamPlayersNames
+
     }
 }

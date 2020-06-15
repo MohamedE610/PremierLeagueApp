@@ -11,5 +11,6 @@ fun TeamModel.map() = TeamUI(
     venue = this.venue,
     clubColors = this.clubColors,
     crestUrl = this.crestUrl,
-    isFavourite = this.isFavourite
+    isFavourite = this.isFavourite,
+    teamPlayersNames = this.teamPlayersNames
 )

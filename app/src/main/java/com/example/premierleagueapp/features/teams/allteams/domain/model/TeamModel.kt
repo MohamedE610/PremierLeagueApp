@@ -14,6 +14,7 @@ data class TeamModel(
     val founded: Int = 0,
     val clubColors: String = "",
     val venue: String = "",
-    val crestUrl:String = "",
-    var isFavourite: Boolean = false
+    val crestUrl: String = "",
+    var isFavourite: Boolean = false,
+    val teamPlayersNames: String = ""
 )
