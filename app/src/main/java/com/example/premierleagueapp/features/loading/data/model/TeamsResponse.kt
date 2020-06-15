@@ -19,14 +19,6 @@ data class TeamsResponse(
 )
 
 @JsonClass(generateAdapter = true)
-data class TeamArea(
-    @Json(name = "id")
-    val id: Int = 0,
-    @Json(name = "name")
-    val name: String = ""
-)
-
-@JsonClass(generateAdapter = true)
 class Filters(
 )
 

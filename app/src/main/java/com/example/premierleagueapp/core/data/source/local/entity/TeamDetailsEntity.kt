@@ -36,7 +36,7 @@ data class TeamDetailsEntity(
     val address: String = "",
 
     @ColumnInfo(name = "phone")
-    val phone: String = "",
+    val phone: String? = "",
 
     @ColumnInfo(name = "website")
     val website: String = "",

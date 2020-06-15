@@ -122,10 +122,7 @@ class AllTeamsFragment : Fragment() {
     }
 
     private fun moreTeamsLoadedSuccessfully(it: List<TeamUI>) {
-        if (it.isEmpty()) {
-            activity?.showShortToast(getString(R.string.lbl_no_more_teams_msg))
-            return
-        }
+        endlessRecyclerOnScrollListener.isLoadingMore = false
         updateTeamLis(it)
     }
 
@@ -150,6 +147,7 @@ class AllTeamsFragment : Fragment() {
 
     private fun showCommonError() {
         activity?.showShortToast(getString(R.string.lbl_common_error))
+        endlessRecyclerOnScrollListener.isLoadingMore = false
     }
 
     // endregion initObservers
@@ -161,12 +159,7 @@ class AllTeamsFragment : Fragment() {
     }
 
     private fun setOnTeamsRecyclerViewOnScrollListener() {
-        rvAllTeams.addOnScrollListener(object :
-            EndlessRecyclerOnScrollListener(rvAllTeams.layoutManager as LinearLayoutManager, 1) {
-            override fun onLoadMore() {
-                teamsViewModel.loadMoreTeamsFromDBM()
-            }
-        })
+        rvAllTeams.addOnScrollListener(endlessRecyclerOnScrollListener)
     }
 
     private fun setUpTeamsRecyclerView() {
@@ -192,6 +185,18 @@ class AllTeamsFragment : Fragment() {
     }
 
     //endregion initViews
+
+    // region listeners
+
+    private val endlessRecyclerOnScrollListener by lazy {
+        object : EndlessRecyclerOnScrollListener(rvAllTeams.layoutManager as LinearLayoutManager) {
+            override fun onLoadMore() {
+                teamsViewModel.loadMoreTeamsFromDBM()
+            }
+        }
+    }
+
+    //endregion listeners
 
     companion object {
         @JvmStatic

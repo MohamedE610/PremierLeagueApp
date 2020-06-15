@@ -1,6 +1,5 @@
-package com.example.premierleagueapp.features.loading.presentation.di
+package com.example.premierleagueapp.features.loading.presentation.di.module
 
-import com.example.premierleagueapp.core.data.source.local.db.PremierLeagueDB
 import com.example.premierleagueapp.core.data.source.remote.ServiceGenerator
 import com.example.premierleagueapp.features.loading.data.repository.LoadingRepositoryImpl
 import com.example.premierleagueapp.features.loading.data.source.local.LoadingLocalDataSource

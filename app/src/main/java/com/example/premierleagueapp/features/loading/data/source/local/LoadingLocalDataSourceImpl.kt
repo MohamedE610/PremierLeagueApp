@@ -11,7 +11,6 @@ class LoadingLocalDataSourceImpl @Inject constructor(private val teamsDao: Teams
         return Completable.fromCallable {
             val favouriteTeams = teamsDao.getFavouriteTeams().blockingFirst()
             val updatedTeams = updateFavouriteTeams(favouriteTeams, teams)
-            teamsDao.deleteAllTeams()
             teamsDao.insertTeams(updatedTeams)
         }
     }

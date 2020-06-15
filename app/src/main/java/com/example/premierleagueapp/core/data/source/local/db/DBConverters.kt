@@ -28,7 +28,7 @@ class DBConverters {
     @TypeConverter
     fun getActiveCompetitionsJson(activeCompetition: List<ActiveCompetition>): String? {
         val moshi = Moshi.Builder().build()
-        val type = Types.newParameterizedType(List::class.java, Player::class.java)
+        val type = Types.newParameterizedType(List::class.java, ActiveCompetition::class.java)
         val activeCompetitionAdapter =
             moshi.adapter<List<ActiveCompetition>>(type)
         return activeCompetitionAdapter.toJson(activeCompetition)
@@ -37,7 +37,7 @@ class DBConverters {
     @TypeConverter
     fun getActiveCompetitionsList(activeCompetitionJson: String): List<ActiveCompetition>? {
         val moshi = Moshi.Builder().build()
-        val type = Types.newParameterizedType(List::class.java, Player::class.java)
+        val type = Types.newParameterizedType(List::class.java, ActiveCompetition::class.java)
         val activeCompetitionAdapter =
             moshi.adapter<List<ActiveCompetition>>(type)
         return activeCompetitionAdapter.fromJson(activeCompetitionJson)

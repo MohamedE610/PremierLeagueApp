@@ -1,7 +1,7 @@
 package com.example.premierleagueapp.features.loading.data.repository
 
 import com.example.premierleagueapp.core.data.source.local.entity.TeamDetailsEntity
-import com.example.premierleagueapp.features.teamdetails.data.model.TeamDetailsResponse
+import com.example.premierleagueapp.features.loading.data.model.TeamDetailsResponse
 import com.example.premierleagueapp.features.loading.data.model.TeamsResponse
 import com.example.premierleagueapp.features.loading.data.source.local.LoadingLocalDataSource
 import com.example.premierleagueapp.features.loading.data.source.remote.LoadingRemoteDataSource

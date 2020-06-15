@@ -21,6 +21,7 @@ ext {
     lottieVersion = "3.4.0"
     recyclerviewVersion = "1.2.0-alpha02"
     androidsvgVersion = "1.2.1"
+    workVersion = "2.3.4"
 
 
     appDependencies = [
@@ -69,7 +70,9 @@ ext {
             /*for use merge adapter in recycler view*/
             recyclerviewAlpha02     : "androidx.recyclerview:recyclerview:$recyclerviewVersion",
 
-            androidsvg              : "com.caverock:androidsvg:$androidsvgVersion"
+            androidsvg              : "com.caverock:androidsvg:$androidsvgVersion",
+
+            workRxjava2             : "androidx.work:work-rxjava2:$workVersion"
 
     ]
 

@@ -1,4 +1,4 @@
-package com.example.premierleagueapp.features.teamdetails.data.model
+package com.example.premierleagueapp.features.loading.data.model
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -22,13 +22,13 @@ data class TeamDetailsResponse(
     @Json(name = "address")
     val address: String = "",
     @Json(name = "phone")
-    val phone: String = "",
+    val phone: String? = "",
     @Json(name = "website")
     val website: String = "",
     @Json(name = "email")
     val email: String? = null,
     @Json(name = "founded")
-    val founded: Int = 0,
+    val founded: Int ?= 0,
     @Json(name = "clubColors")
     val clubColors: String = "",
     @Json(name = "venue")
@@ -39,13 +39,6 @@ data class TeamDetailsResponse(
     val lastUpdated: String = ""
 )
 
-@JsonClass(generateAdapter = true)
-data class TeamArea(
-    @Json(name = "id")
-    val id: Int = 0,
-    @Json(name = "name")
-    val name: String = ""
-)
 
 @JsonClass(generateAdapter = true)
 data class TeamActiveCompetition(

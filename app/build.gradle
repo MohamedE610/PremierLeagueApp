@@ -23,7 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
-        debug{
+        debug {
             minifyEnabled false
 
             buildConfigField "String", "BASE_URL", getPropertyValueByKey("BASE_URL")
@@ -101,6 +101,6 @@ dependencies {
 
     implementation appDependencies.androidsvg
 
-
+    implementation appDependencies.workRxjava2
 
 }

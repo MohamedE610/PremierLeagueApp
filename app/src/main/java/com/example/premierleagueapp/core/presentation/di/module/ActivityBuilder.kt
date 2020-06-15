@@ -1,7 +1,7 @@
 package com.example.premierleagueapp.core.presentation.di.module
 
 import com.example.premierleagueapp.common.teamfavourite.presentation.di.TeamFavouriteModule
-import com.example.premierleagueapp.features.loading.presentation.di.LoadingModule
+import com.example.premierleagueapp.features.loading.presentation.di.module.LoadingModule
 import com.example.premierleagueapp.features.loading.presentation.view.LoadingActivity
 import com.example.premierleagueapp.features.teamdetails.presentation.di.TeamDetailsFragmentBuilder
 import com.example.premierleagueapp.features.teamdetails.presentation.view.activity.TeamDetailsActivity

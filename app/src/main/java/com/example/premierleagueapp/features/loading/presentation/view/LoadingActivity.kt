@@ -1,13 +1,12 @@
 package com.example.premierleagueapp.features.loading.presentation.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.premierleagueapp.R
 import com.example.premierleagueapp.core.data.source.remote.rxerrorhandling.PremierLeagueException
-import com.example.premierleagueapp.core.presentation.extensions.isInternetAvailable
 import com.example.premierleagueapp.core.presentation.extensions.showShortToast
 import com.example.premierleagueapp.core.presentation.utils.InternetConnectivityListener
 import com.example.premierleagueapp.core.presentation.viewmodel.ViewModelFactory
@@ -32,23 +31,41 @@ class LoadingActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         setContentView(R.layout.activity_loading)
         initObservers()
-        loadPremierLeagueTeams()
+        startLoadingPremierLeagueTeams()
     }
 
-    private fun loadPremierLeagueTeams() {
-        loadingViewModel.loadPremierLeagueTeams()
+    private fun startLoadingPremierLeagueTeams() {
+        loadingViewModel.startLoadPremierLeagueTeams()
+        loadingViewModel.startObservingOnFirstPageOfTeamsLoaded(this)
     }
 
     private fun initObservers() {
-        loadingViewModel.loadingTeamsObservable.observe(this,
-            successObserver = Observer { teamsLoadedSuccessfully() },
-            commonErrorObserver = Observer { it?.let { showServerDownError(it) } },
-            httpErrorConsumer = Observer { it?.let { showHttpError(it) } },
-            networkErrorConsumer = Observer { it?.let { showNetworkError(it) } },
-            serverDownErrorConsumer = Observer { it?.let { showServerDownError(it) } },
-            timeOutErrorConsumer = Observer { it?.let { showTimeOutError(it) } },
-            unExpectedErrorConsumer = Observer { it?.let { showServerDownError(it) } })
+        observeOnFirstPageLoaded()
+        observeOnLoadingError()
         observeOnInternetConnection()
+    }
+
+    private fun observeOnFirstPageLoaded() {
+        loadingViewModel.isFirstPageLoadedLiveEvent.observe(this,
+            Observer {
+                navigateToTeamsActivity()
+            })
+    }
+
+    private fun observeOnLoadingError() {
+        loadingViewModel.onLoadingErrorLiveEvent.observe(this, Observer {
+            it?.let { errorKind ->
+                when (errorKind) {
+                    PremierLeagueException.Kind.NETWORK -> showNetworkError()
+                    PremierLeagueException.Kind.HTTP -> showHttpError()
+                    PremierLeagueException.Kind.TIME_OUT -> showTimeOutError()
+                    PremierLeagueException.Kind.SERVER_DOWN,
+                    PremierLeagueException.Kind.UNEXPECTED -> {
+                        showServerDownError()
+                    }
+                }
+            }
+        })
     }
 
     private fun observeOnInternetConnection() {
@@ -57,14 +74,10 @@ class LoadingActivity : AppCompatActivity() {
                 it?.let { isInternetAvailable ->
                     if (isInternetAvailable) {
                         showShortToast(getString(R.string.lbl_internet_connected))
-                        loadPremierLeagueTeams()
+                        startLoadingPremierLeagueTeams()
                     }
                 }
             })
-    }
-
-    private fun teamsLoadedSuccessfully() {
-        navigateToTeamsActivity()
     }
 
     private fun navigateToTeamsActivity() {
@@ -73,20 +86,23 @@ class LoadingActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun showTimeOutError(it: PremierLeagueException) {
+    private fun showTimeOutError() {
         showShortToast(getString(R.string.lbl_common_error))
+        showShortToast(getString(R.string.lbl_try_again_later))
     }
 
-    private fun showServerDownError(it: PremierLeagueException) {
+    private fun showServerDownError() {
         showShortToast(getString(R.string.lbl_common_error))
+        showShortToast(getString(R.string.lbl_try_again_later))
     }
 
-    private fun showNetworkError(it: PremierLeagueException) {
+    private fun showNetworkError() {
         showShortToast(getString(R.string.lbl_network_error))
     }
 
-    private fun showHttpError(it: PremierLeagueException) {
+    private fun showHttpError() {
         showShortToast(getString(R.string.lbl_common_error))
+        showShortToast(getString(R.string.lbl_try_again_later))
     }
 
     override fun onResume() {

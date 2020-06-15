@@ -8,11 +8,6 @@ import javax.inject.Inject
 
 class TeamDetailsLocalDataSourceImpl @Inject constructor(private val teamsDao: TeamsDao) :
     TeamDetailsLocalDataSource {
-    override fun updateTeamDetails(teamDetails: TeamDetailsEntity): Completable {
-        return Completable.fromCallable {
-            teamsDao.updateTeam(team = teamDetails)
-        }
-    }
 
     override fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity> {
         return Single.fromCallable {
