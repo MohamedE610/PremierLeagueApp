@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.premierleagueapp.R
 import com.example.premierleagueapp.core.presentation.extensions.addFragment
@@ -32,16 +33,25 @@ class TeamDetailsActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     private fun addTeamDetailsFragment() {
         val teamId = intent.getIntExtra(TEAM_ID, -1)
-        val fragment = TeamDetailsFragment.newInstance(teamId = teamId)
+        val teamName = intent.getStringExtra(TEAM_NAME) ?: ""
+        val fragment = TeamDetailsFragment.newInstance(teamId = teamId, teamName = teamName)
         val containerId = android.R.id.content
         addFragment(fragment = fragment, frameId = containerId)
     }
 
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     companion object {
         private const val TEAM_ID = "teamId"
-        fun getIntent(context: Context, teamId: Int): Intent {
+        private const val TEAM_NAME = "teamName"
+        fun getIntent(context: Context, teamId: Int, teamName: String): Intent {
             val intent = Intent(context, TeamDetailsActivity::class.java)
             intent.putExtra(TEAM_ID, teamId)
+            intent.putExtra(TEAM_NAME, teamName)
             return intent
         }
     }

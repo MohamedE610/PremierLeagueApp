@@ -23,7 +23,7 @@ abstract class ActivityBuilder {
     )
     abstract fun bindTeamsActivity(): TeamsActivity
 
-    @ContributesAndroidInjector(modules = [TeamDetailsFragmentBuilder::class])
+    @ContributesAndroidInjector(modules = [TeamFavouriteModule::class, TeamDetailsFragmentBuilder::class])
     abstract fun bindTeamDetailsActivity(): TeamDetailsActivity
 
 }

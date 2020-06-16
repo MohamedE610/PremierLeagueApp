@@ -1,5 +1,7 @@
 package com.example.premierleagueapp.features.teams.favouriteteams.presentation.view
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,7 @@ import com.example.premierleagueapp.R
 import com.example.premierleagueapp.common.teamfavourite.presentation.viewmodel.TeamFavouriteViewModel
 import com.example.premierleagueapp.core.presentation.extensions.showShortToast
 import com.example.premierleagueapp.core.presentation.viewmodel.ViewModelFactory
+import com.example.premierleagueapp.features.teamdetails.presentation.view.activity.TeamDetailsActivity
 import com.example.premierleagueapp.features.teams.allteams.presentation.model.TeamUI
 import com.example.premierleagueapp.features.teams.allteams.presentation.view.adapter.FooterAdapter
 import com.example.premierleagueapp.features.teams.allteams.presentation.view.adapter.TeamsAdapter
@@ -113,7 +116,13 @@ class FavouriteTeamsFragment : Fragment() {
     }
 
     private fun onItemClicked(team: TeamUI) {
-        activity?.showShortToast(team.name)
+        navigateToTeamDetailsActivity(team.id, team.name)
+    }
+
+    private fun navigateToTeamDetailsActivity(id: Int, name: String) {
+        val intent =
+            TeamDetailsActivity.getIntent(context = requireContext(), teamId = id, teamName = name)
+        startActivityForResult(intent, TEAM_DETAILS_REQUEST)
     }
 
     private fun onFavouriteItemClicked(team: TeamUI, position: Int) {
@@ -128,7 +137,32 @@ class FavouriteTeamsFragment : Fragment() {
 
     // endregion initViews
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        handleOnActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun handleOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            TEAM_DETAILS_REQUEST -> {
+                if (resultCode == RESULT_OK) {
+                    data?.let {
+                        val teamId = it.getIntExtra(TEAM_ID, -1)
+                        val isFavourite = it.getBooleanExtra(IS_FAVOURITE, false)
+                        val team = teamsAdapter.data.find { team -> team.id == teamId }
+                        team?.isFavourite = isFavourite
+                        teamFavouriteViewModel.lastUpdatedTeam.value = team
+                    }
+                }
+            }
+            else -> Unit
+        }
+    }
+
     companion object {
+        private const val TEAM_DETAILS_REQUEST = 1002
+        private const val TEAM_ID = "teamId"
+        private const val IS_FAVOURITE = "isFavourite"
+
         @JvmStatic
         fun newInstance() = FavouriteTeamsFragment()
     }
