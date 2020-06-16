@@ -4,5 +4,5 @@ import com.example.premierleagueapp.core.data.source.local.entity.TeamDetailsEnt
 import io.reactivex.Single
 
 interface TeamDetailsRepository {
-    fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity>
+    fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity?>
 }

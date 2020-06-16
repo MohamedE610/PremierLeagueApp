@@ -7,9 +7,14 @@ import androidx.room.Room
 import com.example.premierleagueapp.core.data.source.local.db.PremierLeagueDB
 import com.example.premierleagueapp.core.presentation.utils.AppConstants
 import com.example.premierleagueapp.core.presentation.di.qualifier.DatabaseInfo
+import com.example.premierleagueapp.core.presentation.di.qualifier.IoScheduler
+import com.example.premierleagueapp.core.presentation.di.qualifier.MainScheduler
 import com.example.premierleagueapp.core.presentation.di.qualifier.PreferenceInfo
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Singleton
 
 @Module()
@@ -19,6 +24,20 @@ class AppModule {
     @Singleton
     fun provideContext(application: Application): Context {
         return application
+    }
+
+    @MainScheduler
+    @Provides
+    @Singleton
+    fun provideMainScheduler(): Scheduler {
+        return AndroidSchedulers.mainThread()
+    }
+
+    @IoScheduler
+    @Provides
+    @Singleton
+    fun provideIoScheduler(): Scheduler {
+        return Schedulers.io()
     }
 
     @Provides

@@ -5,5 +5,5 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface TeamDetailsLocalDataSource {
-    fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity>
+    fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity?>
 }

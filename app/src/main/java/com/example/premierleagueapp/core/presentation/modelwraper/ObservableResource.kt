@@ -51,9 +51,8 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
             ownerRef?.also {
                 removeObservers(it)
                 value?.let { vale -> addProperObserver(vale) }
-                super.setValue(value)
             }
-
+            super.setValue(value)
         }
 
         override fun postValue(value: PremierLeagueException) {
@@ -74,7 +73,12 @@ class ObservableResource<T> : SingleLiveEvent<T>() {
                     )
                 }
                     ?: observe(ownerRef!!, commonErrorConsumer!!)
-                PremierLeagueException.Kind.HTTP -> httpErrorConsumer?.let { observe(ownerRef!!, it) }
+                PremierLeagueException.Kind.HTTP -> httpErrorConsumer?.let {
+                    observe(
+                        ownerRef!!,
+                        it
+                    )
+                }
                     ?: observe(ownerRef!!, commonErrorConsumer!!)
                 PremierLeagueException.Kind.UNEXPECTED -> unExpectedErrorConsumer?.let {
                     observe(

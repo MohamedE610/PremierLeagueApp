@@ -6,16 +6,21 @@ import com.example.premierleagueapp.core.presentation.modelwraper.ObservableReso
 import com.example.premierleagueapp.core.presentation.viewmodel.BaseViewModel
 import com.example.premierleagueapp.common.teamfavourite.domain.interactor.MarkTeamAsFavouriteUseCase
 import com.example.premierleagueapp.common.teamfavourite.domain.interactor.MarkTeamAsUnFavouriteUseCase
+import com.example.premierleagueapp.core.presentation.di.qualifier.IoScheduler
+import com.example.premierleagueapp.core.presentation.di.qualifier.MainScheduler
 import com.example.premierleagueapp.features.teams.allteams.domain.interactor.GetTeamsFromDBUseCase
 import com.example.premierleagueapp.features.teams.allteams.presentation.mapper.map
 import com.example.premierleagueapp.features.teams.allteams.presentation.model.TeamUI
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class TeamsViewModel @Inject constructor(
-    private val getTeamsFromDBUseCase: GetTeamsFromDBUseCase
+    private val getTeamsFromDBUseCase: GetTeamsFromDBUseCase,
+    @IoScheduler private val ioScheduler: Scheduler,
+    @MainScheduler private val mainScheduler: Scheduler
 ) : BaseViewModel() {
 
     private var offsetDB = 0
@@ -37,8 +42,8 @@ class TeamsViewModel @Inject constructor(
                 2,
                 TimeUnit.SECONDS
             )/*just add delay 2 seconds to show loading for testing purpose*/
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+            .observeOn(mainScheduler)
+            .subscribeOn(ioScheduler)
             .doOnSubscribe { observableResource.loading.postValue(true) }
             .doFinally { observableResource.loading.postValue(false) }
             .subscribe({

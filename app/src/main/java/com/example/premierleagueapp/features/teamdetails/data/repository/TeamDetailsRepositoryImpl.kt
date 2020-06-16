@@ -6,11 +6,12 @@ import com.example.premierleagueapp.features.teamdetails.domain.repository.TeamD
 import io.reactivex.Single
 import javax.inject.Inject
 
+
 class TeamDetailsRepositoryImpl @Inject constructor(
     private val teamDetailsLocalDataSource: TeamDetailsLocalDataSource
 ) : TeamDetailsRepository {
 
-    override fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity> {
+    override fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity?> {
         return teamDetailsLocalDataSource.getTeamDetailsByIdFromDB(teamId = teamId)
     }
 }

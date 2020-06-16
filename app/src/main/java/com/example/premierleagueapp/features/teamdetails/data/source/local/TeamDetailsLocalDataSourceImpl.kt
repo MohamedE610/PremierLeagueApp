@@ -9,7 +9,7 @@ import javax.inject.Inject
 class TeamDetailsLocalDataSourceImpl @Inject constructor(private val teamsDao: TeamsDao) :
     TeamDetailsLocalDataSource {
 
-    override fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity> {
+    override fun getTeamDetailsByIdFromDB(teamId: Int): Single<TeamDetailsEntity?> {
         return Single.fromCallable {
             teamsDao.getTeamById(teamId)
         }
